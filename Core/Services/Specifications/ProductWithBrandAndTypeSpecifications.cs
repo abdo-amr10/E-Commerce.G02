@@ -16,10 +16,28 @@ namespace Services.Specifications
             AddInclude(p => p.ProductType);
         }
 
-        public ProductWithBrandAndTypeSpecifications() : base()
+        public ProductWithBrandAndTypeSpecifications(string? sort) : base()
         {
             AddInclude(p => p.ProductBrand);
             AddInclude(p => p.ProductType);
+            if (!string.IsNullOrWhiteSpace(sort))
+            {
+                switch (sort.ToLower().Trim())
+                {
+                    case "priceasc":
+                        SetOrderBy(p => p.Price);
+                        break;
+                    case "pricedesc":
+                        SetOrderByDescending(p => p.Price);
+                        break;
+                    case "namedesc":
+                        SetOrderByDescending(p => p.Name);
+                        break;
+                    default:
+                        SetOrderBy(p => p.Name);
+                        break;
+                }
+            }
         }
     }
 }
