@@ -15,6 +15,11 @@ namespace Domain
         {
             Criteria = criteria;
         }
+
+        protected Specifications()
+        {
+        }
+
         protected void AddInclude(Expression<Func<T, object>> expression) => IncludeExpressions.Add(expression);
     }
 }
