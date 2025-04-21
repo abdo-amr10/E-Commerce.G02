@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Contracts
+namespace Shared
 {
-    public interface IDbIntializer
+    public record BrandResultDto
     {
-        public Task IntializeAsync();
-
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

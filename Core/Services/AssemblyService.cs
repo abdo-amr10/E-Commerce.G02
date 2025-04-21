@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Contracts
+namespace Services
 {
-    public interface IDbIntializer
+    public class AssemblyService
     {
-        public Task IntializeAsync();
 
     }
 }
