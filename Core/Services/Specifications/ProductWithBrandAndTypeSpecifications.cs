@@ -16,7 +16,10 @@ namespace Services.Specifications
             AddInclude(p => p.ProductType);
         }
 
-        public ProductWithBrandAndTypeSpecifications(string? sort) : base()
+        public ProductWithBrandAndTypeSpecifications(string? sort, int? brandId, int? typeId) : base(product=>
+        (!brandId.HasValue || product.BrandId==brandId.Value)
+        &&
+        (!typeId.HasValue || product.TypeId==typeId.Value))
         {
             AddInclude(p => p.ProductBrand);
             AddInclude(p => p.ProductType);
