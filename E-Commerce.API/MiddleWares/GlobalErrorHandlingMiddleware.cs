@@ -37,7 +37,7 @@ namespace E_Commerce.API.MiddleWares
 
             var responce = new ErrorDetails
             {
-                ErrorMessage = $"The End Point {httpContext.Request.Path} Not Found"
+                ErrorMessage = $"The End Point {httpContext.Request.Path} Not Found",
                 StatusCode = (int)HttpStatusCode.NotFound
             }.ToString();
 
