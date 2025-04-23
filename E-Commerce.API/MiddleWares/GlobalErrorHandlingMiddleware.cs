@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Domain.Exceptions;
 using Shared.Error_Models;
 
 namespace E_Commerce.API.MiddleWares
@@ -31,6 +32,12 @@ namespace E_Commerce.API.MiddleWares
         {
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+            httpContext.Response.StatusCode = exception switch
+            {
+                NotFoundException => (int)HttpStatusCode.NotFound,
+                _ => (int)HttpStatusCode.InternalServerError
+            };
 
             var Responce = new ErrorDetails
             {
