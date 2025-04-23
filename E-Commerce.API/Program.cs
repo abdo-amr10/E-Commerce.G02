@@ -1,6 +1,8 @@
 
 using Domain.Contracts;
+using E_Commerce.API.Factories;
 using E_Commerce.API.MiddleWares;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Presistence.Data;
@@ -31,6 +33,11 @@ namespace E_Commerce.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            builder.Services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = ApiResponseFactory.CustomValidationErrorResponse;
+            });
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
