@@ -1,5 +1,6 @@
 
 using Domain.Contracts;
+using E_Commerce.API.MiddleWares;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Presistence.Data;
@@ -33,6 +34,7 @@ namespace E_Commerce.API
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+            app.UseMiddleware<GlobalErrorHandlingMiddleware>();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
