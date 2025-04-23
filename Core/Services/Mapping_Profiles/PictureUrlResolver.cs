@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.Extensions.Configuration;
-using Shared;
+using Shared.Dtos;
 
 namespace Services.Mapping_Profiles
 {

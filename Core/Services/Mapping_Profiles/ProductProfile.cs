@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Entities;
-using Shared;
+using Shared.Dtos;
 
 namespace Services.Mapping_Profiles
 {

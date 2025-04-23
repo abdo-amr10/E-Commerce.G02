@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain;
 using Domain.Entities;
+using Shared;
 
 namespace Services.Specifications
 {
@@ -16,24 +17,24 @@ namespace Services.Specifications
             AddInclude(p => p.ProductType);
         }
 
-        public ProductWithBrandAndTypeSpecifications(string? sort, int? brandId, int? typeId) : base(product=>
-        (!brandId.HasValue || product.BrandId==brandId.Value)
+        public ProductWithBrandAndTypeSpecifications(ProductSpecParams parameters) : base(product=>
+        (!parameters.BrandId.HasValue || product.BrandId== parameters.BrandId.Value)
         &&
-        (!typeId.HasValue || product.TypeId==typeId.Value))
+        (!parameters.TypeId.HasValue || product.TypeId == parameters.TypeId.Value))
         {
             AddInclude(p => p.ProductBrand);
             AddInclude(p => p.ProductType);
-            if (!string.IsNullOrWhiteSpace(sort))
+            if (parameters.Sort is not null)
             {
-                switch (sort.ToLower().Trim())
+                switch (parameters.Sort)
                 {
-                    case "priceasc":
+                    case ProductSortingOptions.PriceAsc:
                         SetOrderBy(p => p.Price);
                         break;
-                    case "pricedesc":
+                    case ProductSortingOptions.PriceDesc:
                         SetOrderByDescending(p => p.Price);
                         break;
-                    case "namedesc":
+                    case ProductSortingOptions.NameDesc:
                         SetOrderByDescending(p => p.Name);
                         break;
                     default:
