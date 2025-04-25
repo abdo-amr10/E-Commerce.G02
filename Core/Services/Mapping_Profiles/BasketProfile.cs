@@ -13,7 +13,11 @@ namespace Services.Mapping_Profiles
     {
         public BasketProfile()
         {
-            CreateMap<CustomerBasket,BasketDto>();   
+            CreateMap<CustomerBasket,BasketDto>();
+            CreateMap<BasketDto, CustomerBasket>();
+
+            CreateMap<BasketItems, BasketItemDto>();
+            CreateMap<BasketItemDto, BasketItems>();
         }
     }
 }
