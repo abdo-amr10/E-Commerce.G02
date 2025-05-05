@@ -1,4 +1,6 @@
 ﻿using Domain.Contracts;
+using Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Presistence.Data;
 using Presistence.Identity;
@@ -28,7 +30,26 @@ namespace E_Commerce.API.Extensions
 
             services.AddSingleton<IConnectionMultiplexer>(
                      _=> ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")!));
+
+            services.ConfigureIdentityServices();
             return services;
+        }
+
+        public static IServiceCollection ConfigureIdentityServices(this IServiceCollection services)
+        {
+            services.AddIdentity<User , IdentityRole>(options =>
+            {
+
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 8;
+                options.User.RequireUniqueEmail = true;
+
+            }).AddEntityFrameworkStores<IdentityAppDbContext>();
+
+            return services;    
         }
     }
 }
