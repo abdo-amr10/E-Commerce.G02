@@ -8,11 +8,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Presistence.Identity
 {
-    public class IdentityAppDbContext : IdentityDbContext<User>
+    public class IdentityAppDbContext(DbContextOptions<IdentityAppDbContext> options) : IdentityDbContext<User>(options)
     {
-        public IdentityAppDbContext(DbContextOptions<IdentityAppDbContext> options) : base(options)
-        {
-        }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

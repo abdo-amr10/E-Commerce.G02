@@ -31,9 +31,31 @@ namespace Services
                 );
         }
 
-        public Task<UserResultDto> RegisterAsync(RegisterDto registerDto)
+        public async Task<UserResultDto> RegisterAsync(RegisterDto registerDto)
         {
-            throw new NotImplementedException();
+            var user = new User
+            {
+                DisplayName = registerDto.DisplayName,
+                Email = registerDto.Email,
+                UserName = registerDto.DisplayName,
+                PhoneNumber = registerDto.PhoneNumber
+            };
+
+            var result = await _userManager.CreateAsync(user , registerDto.Password);
+
+            if(!result.Succeeded )
+            {
+                var errors = result.Errors.Select(e=> e.Description).ToList();
+                throw new ValidationException(errors);
+
+            }
+
+            return new UserResultDto
+                (
+                user.DisplayName,
+                user.Email,
+                "This is token"
+                );
         }
     }
 }
