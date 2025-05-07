@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstraction;
 using Shared.Dtos;
 
 namespace Presentation
 {
- 
+    [Authorize]
+
     public class BasketController(IServiceManger _serviceManger) : ApiController
     {
         [HttpGet("{id}")]

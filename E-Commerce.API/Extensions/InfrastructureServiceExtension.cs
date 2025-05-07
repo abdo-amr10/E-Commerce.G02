@@ -1,10 +1,14 @@
-﻿using Domain.Contracts;
+﻿using System.Text;
+using Domain.Contracts;
 using Domain.Entities.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Presistence.Data;
 using Presistence.Identity;
 using Presistence.Repositories;
+using Shared;
 using StackExchange.Redis;
 
 namespace E_Commerce.API.Extensions
@@ -32,6 +36,7 @@ namespace E_Commerce.API.Extensions
                      _=> ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")!));
 
             services.ConfigureIdentityServices();
+            services.ConfigureJwt(configuration);
             return services;
         }
 
@@ -51,5 +56,38 @@ namespace E_Commerce.API.Extensions
 
             return services;    
         }
+
+        public static IServiceCollection ConfigureJwt(this IServiceCollection services , IConfiguration configuration)
+        {
+            var jwtOptions = configuration.GetSection("JwtOptions").Get<JwtOptions>();
+
+            // Validate On Token
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    // Values
+                    ValidAudience = jwtOptions.Audience,
+                    ValidIssuer = jwtOptions.Issuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(jwtOptions.SecretKey)
+                    )
+                };
+            });
+
+            services.AddAuthorization();
+            return services;
+        }
+
     }
 }
