@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using UserAddress = Domain.Entities.Identity.Address;
-using ShippingAddress = Domain.Entities.Order_Entities.Address;
+﻿global using UserAddress = Domain.Entities.Identity.Address;
+global using ShippingAddress = Domain.Entities.Order_Entities.Address;
 using Shared.Order_Models;
+using AutoMapper;
 using Domain.Entities.Order_Entities;
 
 namespace Services.Mapping_Profiles
