@@ -17,13 +17,13 @@ namespace Domain.Entities.Order_Entities
             ShortName = shortName;
             Description = description;
             DeliveryTime = deliveryTime;
-            Cost = cost;
+            Price = cost;
         }
 
         public string ShortName { get; set; }
         public string Description { get; set; }
         public string DeliveryTime { get; set; }
-        public decimal Cost { get; set; }
+        public decimal Price { get; set; }
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿
 using System.Text.Json;
 using Domain.Entities.Identity;
+using Domain.Entities.Order_Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Presistence.Data
@@ -67,6 +68,19 @@ namespace Presistence.Data
                     if (products != null)
                     {
                         await _dbContext.Products.AddRangeAsync(products);
+                        await _dbContext.SaveChangesAsync();
+                    }
+                }
+
+                if (!_dbContext.DeliveryMethods.Any())
+                {
+                    var methodsData = await File.ReadAllTextAsync(@"..\Infrastructrure\Presistence\Data\Seeding\delivery.json");
+
+                    var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(methodsData);
+
+                    if (methods != null)
+                    {
+                        await _dbContext.DeliveryMethods.AddRangeAsync(methods);
                         await _dbContext.SaveChangesAsync();
                     }
                 }
