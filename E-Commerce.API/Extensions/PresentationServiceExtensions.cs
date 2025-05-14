@@ -15,6 +15,16 @@ namespace E_Commerce.API.Extensions
             services.AddControllers().AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
             services.ConfigureSwagger();
+            services.AddCors(config =>
+            {
+                config.AddPolicy("CORSPolicy", options =>
+                {
+                    options.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .WithOrigins("http://localhost:4200");
+                });
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             return services;
         }

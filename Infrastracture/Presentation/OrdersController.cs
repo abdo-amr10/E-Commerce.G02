@@ -39,7 +39,7 @@ namespace Presentation
 
         [AllowAnonymous]
 
-        [HttpGet("DeliveryMethod")]
+        [HttpGet("DeliveryMethods")]
         public async Task<ActionResult<DeliveryMethodResult>> GetDeliveryMethod()
         {
             var methods = await serviceManger.OrderService.GetDeliveryMethodAsync();

@@ -14,7 +14,7 @@ namespace Presentation
 
     public class BasketController(IServiceManger _serviceManger) : ApiController
     {
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<BasketDto>> Get(string id)
         {
             var basket = await _serviceManger.BasketService.GetBasketAsync(id);

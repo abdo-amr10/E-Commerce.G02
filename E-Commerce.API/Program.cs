@@ -48,7 +48,7 @@ namespace E_Commerce.API
                 app.UseSwaggerUI();
             }
             app.UseStaticFiles();
-
+            app.UseCors("CORSPolicy");
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
