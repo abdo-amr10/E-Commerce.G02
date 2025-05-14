@@ -41,9 +41,16 @@ namespace Services
                                            .GetByIdAsync(request.DeliveryMethodId)
                                            ?? throw new DeliveryNotFoundException(request.DeliveryMethodId) ;
 
+            var orderRepo = unitOfWork.GetRepository<Order, Guid>();
+            var existingOrder = await orderRepo.GetByIdAsync(new OrderWithPaymentIntentSpecifications(basket.PaymentIntentId!));
+
+            if (existingOrder is not null)
+                orderRepo.Delete(existingOrder);
+
+
             var subTotal = orderItems.Sum(item => item.Price * item.Quantity);
 
-            var order = new Order(userEmail, address, orderItems, deliveryMethod, subTotal);
+            var order = new Order(userEmail, address, orderItems, deliveryMethod, subTotal , basket.PaymentIntentId!);
 
             // 6. Save To DB
             await unitOfWork.GetRepository<Order, Guid>()

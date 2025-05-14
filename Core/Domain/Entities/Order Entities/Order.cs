@@ -17,13 +17,15 @@ namespace Domain.Entities.Order_Entities
             Address shippingAddress,
             ICollection<OrderItem> orderItems,
             DeliveryMethod deliveryMethod,
-            decimal subTotal)
+            decimal subTotal,
+            string paymentIntentId)
         {
             UserEmail = userEmail;
             ShippingAddress = shippingAddress;
             OrderItems = orderItems;
             DeliveryMethod = deliveryMethod;
             SubTotal = subTotal;
+            PaymentIntentId = paymentIntentId;
         }
 
         public string UserEmail { get; set; }
@@ -33,7 +35,7 @@ namespace Domain.Entities.Order_Entities
         public DeliveryMethod DeliveryMethod { get; set; }
         public int? DeliveryMethodId { get; set; }
         public decimal SubTotal { get; set; }
-        public string PaymentIntentId { get; set; } = string.Empty;
+        public string PaymentIntentId { get; set; } 
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
 
     }
