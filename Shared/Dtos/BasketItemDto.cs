@@ -12,8 +12,6 @@ namespace Shared.Dtos
         public int Id { get; init; }
         public string ProductName { get; init; }
         public string PictureUrl { get; init; }
-        public string Category { get; init; }
-        public string Brand { get; init; }
 
         [Range(1, 99, ErrorMessage = "Quantity Must Be At Least 1 Item")]
         public int Quantity { get; init; }
