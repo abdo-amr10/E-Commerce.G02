@@ -41,6 +41,7 @@ namespace Presentation
         {
             /// api/Products?sort=priceAsc&pageIndex=1&pageSize=5
             /// api/Products|sort-priceAsc|pageIndex-1|pageSize-5
+            /// 
 
             var keyBuilder = new StringBuilder();
 
