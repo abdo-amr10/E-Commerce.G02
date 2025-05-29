@@ -21,6 +21,7 @@ namespace E_Commerce.API.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDbIntializer, DbIntializer>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<ICacheRepository, CacheRepository>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {

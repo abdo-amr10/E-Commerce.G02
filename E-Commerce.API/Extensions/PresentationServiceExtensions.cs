@@ -15,6 +15,7 @@ namespace E_Commerce.API.Extensions
             services.AddControllers().AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
             services.ConfigureSwagger();
+
             services.AddCors(config =>
             {
                 config.AddPolicy("CORSPolicy", options =>
@@ -58,6 +59,8 @@ namespace E_Commerce.API.Extensions
         }
     });
             });
+
+
 
             return services;
         }
