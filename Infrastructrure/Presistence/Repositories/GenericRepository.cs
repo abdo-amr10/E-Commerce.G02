@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
 using Presistence.Data;
 
 namespace Presistence.Repositories
@@ -28,6 +29,17 @@ namespace Presistence.Repositories
 
         public void Delete(TEntity entity) => _dbContext.Set<TEntity>().Remove(entity);
 
+        public async Task<TEntity?> GetByIdAsync(Specifications<TEntity> specifications)
+           => await ApplySpecifications(specifications).FirstOrDefaultAsync();
 
+        public async Task<IEnumerable<TEntity>> GetAllAsync(Specifications<TEntity> specifications)
+              => await ApplySpecifications(specifications).ToListAsync();
+
+        public async Task<int> CountAsync(Specifications<TEntity> specifications)
+            => await ApplySpecifications(specifications).CountAsync();
+        private IQueryable<TEntity> ApplySpecifications(Specifications<TEntity> specifications)
+            => SpecificationEvaluator.GetQuery<TEntity>(_dbContext.Set<TEntity>(), specifications);
+
+        
     }
 }
